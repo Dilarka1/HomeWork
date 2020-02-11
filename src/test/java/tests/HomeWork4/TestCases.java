@@ -235,22 +235,13 @@ Test Case #7
     }
      */
 
+    @Test(description = "Verify that following message as a summary is displayed: “Summary: Daily every 1 day, endafter 10 occurrences")
+    public void test10() {
+        driver.findElement(By.xpath("//a[@title='Create Calendar event']")).click();
+
+
+    }
 /*
-
-7.Verify that “Repeat Every” radio button is selected
-8.Verify that “Never” radio button is selected as an “Ends” option.
-9.Verify that following message as a summary is displayed: “Summary: Daily every 1 day”
- */
-
-
-/*
-Test Case #10
-1.Go to “https://qa1.vytrack.com/"
-2.Login as a store manager
-3.Navigate to “Activities -> Calendar Events”
-4.Click on “Create Calendar Event” button
-
-
 5.Select “Repeat” checkbox
 6.Select “After 10 occurrences” as an “Ends” option.
 7.Verify that following message as a summary is displayed: “Summary: Daily every 1 day, endafter 10 occurrences”
