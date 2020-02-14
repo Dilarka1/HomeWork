@@ -235,39 +235,116 @@ Test Case #7
     }
      */
 
+//    @Test(description = "Verify that following message as a summary is displayed: “Summary: Daily every 1 day, endafter 10 occurrences")
+//    public void test10() {
+//        driver.findElement(By.xpath("//a[@title='Create Calendar event']")).click();
+//        WebElement repeatButton = driver.findElement(By.xpath("//input[@data-name='recurrence-repeat']"));
+//        BrowserUtils.wait(3);
+//        repeatButton.click();
+//        //Click "After" radio button
+//        driver.findElement(By.xpath("//span[text()='After']/preceding-sibling :: input")).click();
+//        //send 10 into occurrence box
+//        driver.findElement(By.xpath("//span[text()='After']/following-sibling :: input")).sendKeys("10", Keys.ENTER);
+//        BrowserUtils.wait(3);
+//        String expectedMessage = "Daily every 1 day, end after 10 occurrences";
+//        String actualMessage = driver.findElement(By.xpath("//div[@data-name='recurrence-summary']/div")).getText();
+//        System.out.println(actualMessage);
+//        Assert.assertEquals(actualMessage, expectedMessage);
+//    }
+
+
     @Test(description = "Verify that following message as a summary is displayed: “Summary: Daily every 1 day, endafter 10 occurrences")
     public void test10() {
         driver.findElement(By.xpath("//a[@title='Create Calendar event']")).click();
-
-
+        driver.findElement(By.xpath("//input[@data-name='recurrence-repeat']")).click();
+        driver.findElement(By.xpath("//span[text()='After']/preceding-sibling :: input")).click();
+        driver.findElement(By.xpath("//span[text()='After']/following-sibling :: input")).sendKeys("10", Keys.ENTER);
+        WebElement message = driver.findElement(By.xpath("//div[@class='control-group recurrence-summary alert-info']"));
+        String actualmessage = message.getText().trim();
+        System.out.println(actualmessage);
+        BrowserUtils.wait(3);
+        String expectedmessage = "Summary: Daily every 1 day, end after 10 occurrences";
+        Assert.assertEquals(actualmessage, expectedmessage, "Something wrong");
     }
+
+    @Test(description = "Verify that following message as a summary is displayed: " +
+            "“Summary: Daily every 1 day, end by Nov 18, 2021")
+    public void test11() {
+        driver.findElement(By.xpath("//a[@title='Create Calendar event']")).click();
+        driver.findElement(By.xpath("//input[@data-name='recurrence-repeat']")).click();
+        driver.findElement(By.xpath("//div[@class='recurrence-subview-control__item recurrence-subview-control__item-datetime']//label")).click();
+        driver.findElement(By.xpath("//span[text()='By']/parent :: label/following-sibling :: span/div/input[2]")).click();
+        BrowserUtils.wait(3);
+        WebElement month = driver.findElement(By.className("ui-datepicker-month"));
+        month.click();
+        Select select = new Select(month);
+        select.selectByValue("10");
+        WebElement year = driver.findElement(By.className("ui-datepicker-year"));
+        year.click();
+        Select select1 = new Select(year);
+        select.selectByValue("2021");
+    }
+
 /*
-5.Select “Repeat” checkbox
-6.Select “After 10 occurrences” as an “Ends” option.
-7.Verify that following message as a summary is displayed: “Summary: Daily every 1 day, endafter 10 occurrences”
+@Test(description = "Verify that following message as a summary is displayed: “Summary: Daily every 1 day, end by Nov 18, 2021")
+    public void test11(){
+        driver.findElement(By.xpath("//a[@title='Create Calendar event']")).click();
+        WebElement repeatButton = driver.findElement(By.xpath("//input[@data-name='recurrence-repeat']"));
+        BrowserUtils.wait(3);
+        repeatButton.click();
+        //Click "By" button
+        driver.findElement(By.xpath("//span[text()='By']/preceding-sibling :: input")).click();
+        driver.findElement(By.xpath("//span[text()='By']/parent :: label/following-sibling :: span/div/input[2]")).click();
+        WebElement monthName = driver.findElement(By.className("ui-datepicker-month"));
+        Select select = new Select(monthName);
+        select.selectByValue("10");
+        WebElement year = driver.findElement(By.className("ui-datepicker-year"));
+        Select select1 = new Select(year);
+        select1.selectByValue("2021");
+        driver.findElement(By.xpath("//table/tbody/tr[3]/td[5]/a")).click();
+        String expectedMessage = "Daily every 1 day, end by Nov 18, 2021";
+        String actualMessage = driver.findElement(By.xpath("//div[@data-name='recurrence-summary']/div")).getText();
+        System.out.println(actualMessage);
+        Assert.assertEquals(actualMessage,expectedMessage);
+    }
  */
-
 /*
-Test Case #11
- 1.Go to “https://qa1.vytrack.com/"
- 2.Login as a store manager
- 3.Navigate to “Activities -> Calendar Events”
- 4.Click on “Create Calendar Event” button
 
- 5.Select “Repeat” checkbox
  6.Select “By Nov 18, 2021” as an “Ends” option.
  7.Verify that following message as a summary is displayed: “Summary: Daily every 1 day, end by Nov 18, 2021”
  */
 
+    @Test(description = "Verify that “Monday and Friday” options are selected;" +
+            "Verify that following message as a summary is displayed: " +
+            "'Summary: Weekly every 1 week onMonday, Friday'")
+    public void test12() {
+        driver.findElement(By.xpath("//a[@title='Create Calendar event']")).click();
+        driver.findElement(By.xpath("//input[@data-name='recurrence-repeat']")).click();
+        WebElement weekly = driver.findElement(By.xpath("//select[@id='recurrence-repeats-view1168']"));
+        Select select = new Select(weekly);
+        select.selectByValue("weekly");
+        BrowserUtils.wait(3);
+
+        WebElement monday = driver.findElement(By.xpath("//span[@class='multi-checkbox-control_text'][contains(text(),'M')]"));
+        monday.click();
+        BrowserUtils.wait(3);
+
+        WebElement friday = driver.findElement(By.xpath("//label[6]//input[1]"));
+        friday.click();
+        BrowserUtils.wait(3);
+
+        WebElement message = driver.findElement(By.xpath("//div[@class='control-group recurrence-summary alert-info']"));
+        String actualmessage = message.getText();
+        String expectingMessage = "Summary: Weekly every 1 week on Monday, Friday";
+        System.out.println(actualmessage);
+        Assert.assertEquals(actualmessage, expectingMessage, "something is not right");
+
+
+
+    }
 
     /*
     Test Case #12
-    1.Go to “https://qa1.vytrack.com/"
-    2.Login as a store manager
-    3.Navigate to “Activities -> Calendar Events”
-    4.Click on “Create Calendar Event” button
-
-    5.Select “Repeat” checkbox
     6.Select “Weekly” options as a “Repeat” option
     7.Select “Monday and Friday” options as a “Repeat On” options
     8.Verify that “Monday and Friday” options are selected
