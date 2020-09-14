@@ -113,45 +113,41 @@ Step 4. Verify that warning message is displayed:
 
     }
 
-/*
-    Test case #5
+    /*
+        Test case #5
 
-    Step 1. Go to “https://practice-cybertekschool.herokuapp.com”
-    Step 2. Click on “Registration Form”
+        Step 1. Go to “https://practice-cybertekschool.herokuapp.com”
+        Step 2. Click on “Registration Form”
 
-    Step 3. Enter any valid first name.
+        Step 3. Enter any valid first name.
 
-    Step 4. Enter any valid last name.
+        Step 4. Enter any valid last name.
 
-    Step 5. Enter any valid user name.
+        Step 5. Enter any valid user name.
 
-    Step 6. Enter any valid password.
+        Step 6. Enter any valid password.
 
-    Step 7. Enter any valid phone number.
+        Step 7. Enter any valid phone number.
 
-    Step 8. Select gender.
+        Step 8. Select gender.
 
-    Step 9. Enter any valid date of birth.
+        Step 9. Enter any valid date of birth.
 
-    Step 10. Select any department.
+        Step 10. Select any department.
 
-    Step 11. Enter any job title.
+        Step 11. Enter any job title.
 
-    Step 12. Select java as a programming language.
+        Step 12. Select java as a programming language.
 
-    Step 13. Click Sign up.
+        Step 13. Click Sign up.
 
-    Step 14. Verify that following success message is displayed:
-    “You've successfully completed registration!”
+        Step 14. Verify that following success message is displayed:
+        “You've successfully completed registration!”
 
-
-
-    Note: for using dropdown, please refer to the documentation:
-    https://selenium.dev/selenium/docs/api/java/org/openqa/selenium/support/ui/Select.html
-    or, please watch short video about drop-downs that is posted on canvas.
-*/
-
-
+        Note: for using dropdown, please refer to the documentation:
+        https://selenium.dev/selenium/docs/api/java/org/openqa/selenium/support/ui/Select.html
+        or, please watch short video about drop-downs that is posted on canvas.
+    */
     @Test(description = "Verify message is displayed")
     public void test5() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -162,7 +158,6 @@ Step 4. Verify that warning message is displayed:
         driver.findElement(By.name("email")).sendKeys("mickey@disney.ru");
         driver.findElement(By.name("password")).sendKeys("12345678");
         driver.findElement(By.name("phone")).sendKeys("123-045-6790");
-
 
         driver.findElement(By.cssSelector("input[value='female']")).click();
         driver.findElement(By.name("birthday")).sendKeys("09/09/2009");
@@ -178,15 +173,10 @@ Step 4. Verify that warning message is displayed:
         String actualMessage = driver.findElement(By.tagName("p")).getText();
         System.out.println(actualMessage);
         Assert.assertEquals(actualMessage, expectedMessage, "Verification message is not displayed");
-
-
     }
-
 
     @AfterMethod
     public void teardown() {
         driver.quit();
-
     }
 }
-
